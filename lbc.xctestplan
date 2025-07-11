@@ -21,7 +21,7 @@
       "target" : {
         "containerPath" : "container:lbc.xcodeproj",
         "identifier" : "509B87BF2E21C9DA00B75B55",
-        "name" : "LbcLibTests"
+        "name" : "Tests"
       }
     }
   ],
