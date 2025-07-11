@@ -6,7 +6,7 @@ This document outlines the context and plan for building a BASIC compiler using 
 
 The compiler will be built with the following classical stages:
 
-1.  **Lexer:** Converts source code into a stream of tokens.
+1.  **Lexer:** Converts source code into a stream of tokens. **(Completed)**
 2.  **Parser:** Builds an Abstract Syntax Tree (AST) from the token stream.
 3.  **Sema (Semantic Analysis):** Performs type checking and other semantic checks on the AST.
 4.  **IR (Intermediate Representation):** Generates an intermediate representation from the AST.
@@ -27,4 +27,6 @@ The compiler will be built with the following classical stages:
 
 ## Design Decisions
 
-- **Lexer State:** The Lexer will be kept stateless. It is responsible only for converting character sequences into tokens. It will emit an `eos` (end-of-statement) token for every newline encountered. The Parser will be responsible for handling any extraneous `eos` tokens (e.g., from empty lines), thus maintaining a clear separation of concerns.
+- **Lexer Implementation:** The Lexer has been implemented as a `struct` that conforms to the `Sequence` protocol, making it a stateless, value-type iterator. This provides an idiomatic and efficient way to generate a token stream.
+- **Lexer State:** The Lexer is stateless regarding grammar. It is responsible only for converting character sequences into tokens. It emits an `eos` (end-of-statement) token for every newline encountered. The Parser will be responsible for handling any extraneous `eos` tokens (e.g., from empty lines), thus maintaining a clear separation of concerns.
+- **Testing:** The project is structured with a dedicated `Lbc` framework and a `Tests` target. The Lexer is fully tested and verified against the initial target source code.
