@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "582E644F-E69E-4F83-A2F8-CFB056033481",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:lbc.xcodeproj",
+      "identifier" : "505787F42E21BB3B0095818D",
+      "name" : "lbc"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:lbc.xcodeproj",
+        "identifier" : "509B87BF2E21C9DA00B75B55",
+        "name" : "LbcLibTests"
+      }
+    }
+  ],
+  "version" : 1
+}

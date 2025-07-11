@@ -6,8 +6,8 @@
 //
 
 // A token, produced by the lexer.
-public struct Token {
-    public enum Kind: String, CaseIterable {
+public struct Token: Equatable {
+    public enum Kind: String, CaseIterable, Equatable {
         // Markers
         case unknown
         case eof
