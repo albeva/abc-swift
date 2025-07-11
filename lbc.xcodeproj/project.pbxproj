@@ -53,13 +53,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		502973072E21CF0D00D09F9D /* lbc.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = lbc.xctestplan; sourceTree = "<group>"; };
 		505787F52E21BB3B0095818D /* App */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = App; sourceTree = BUILT_PRODUCTS_DIR; };
 		509B87B92E21C9DA00B75B55 /* Lbc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Lbc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		509B87C02E21C9DA00B75B55 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		502973082E21D08200D09F9D /* Exceptions for "Tests" folder in "Tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				lbc.xctestplan,
+			);
+			target = 509B87BF2E21C9DA00B75B55 /* Tests */;
+		};
 		509B87C82E21C9DA00B75B55 /* Exceptions for "Lib" folder in "Lbc" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
@@ -90,6 +96,9 @@
 		};
 		509B87C42E21C9DA00B75B55 /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				502973082E21D08200D09F9D /* Exceptions for "Tests" folder in "Tests" target */,
+			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
@@ -125,7 +134,6 @@
 		505787EC2E21BB3B0095818D = {
 			isa = PBXGroup;
 			children = (
-				502973072E21CF0D00D09F9D /* lbc.xctestplan */,
 				505788012E21C0000095818D /* Samples */,
 				505787F72E21BB3B0095818D /* App */,
 				509B87BA2E21C9DA00B75B55 /* Lib */,
