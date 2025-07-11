@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import LbcLib
+import Lbc
 
 let lexer = Lexer(source: "print \"hello world\"")
 for token in lexer {

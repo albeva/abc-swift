@@ -5,7 +5,7 @@
 //  Created by Albert Varaksin on 11/07/2025.
 //
 import Testing
-@testable import LbcLib
+@testable import Lbc
 
 struct LexerTests {
     @Test func testLexer() throws {
