@@ -6,8 +6,8 @@
 //
 
 // A token, produced by the lexer.
-struct Token {
-    enum Kind: String, CaseIterable {
+public struct Token {
+    public enum Kind: String, CaseIterable {
         // Markers
         case unknown
         case eof
@@ -32,6 +32,6 @@ struct Token {
         case comma = ","
     }
 
-    let kind: Kind
-    let lexeme: String
+    public let kind: Kind
+    public let lexeme: String
 }

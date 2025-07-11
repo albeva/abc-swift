@@ -24,3 +24,7 @@ The compiler will be built with the following classical stages:
 -   Development will proceed one step at a time.
 -   Code will only be written upon explicit request.
 -   The assistant will provide critical feedback to ensure solutions remain simple and aligned with the project's core principles.
+
+## Design Decisions
+
+- **Lexer State:** The Lexer will be kept stateless. It is responsible only for converting character sequences into tokens. It will emit an `eos` (end-of-statement) token for every newline encountered. The Parser will be responsible for handling any extraneous `eos` tokens (e.g., from empty lines), thus maintaining a clear separation of concerns.

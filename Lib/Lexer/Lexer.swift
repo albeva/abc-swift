@@ -8,17 +8,17 @@
 import Foundation
 
 // The lexer, which turns a source string into a stream of tokens.
-class Lexer {
+public struct Lexer {
     private let source: String
     private var index: String.Index
 
-    init(source: String) {
+    public init(source: String) {
         self.source = source
         self.index = source.startIndex
     }
 
     // Returns the next token in the source stream.
-    func next() -> Token {
+    mutating func next() -> Token {
         while hasMore {
             switch char {
             case " ", "\t":
@@ -61,10 +61,31 @@ class Lexer {
     }
 }
 
+// MARK: - Iterate over sequence
+
+public struct LexerIterator: IteratorProtocol {
+    private var lexer: Lexer
+
+    init(lexer: Lexer) {
+        self.lexer = lexer
+    }
+
+    public mutating func next() -> Token? {
+        let token = lexer.next()
+        return token.kind == .eof ? nil : token
+    }
+}
+
+extension Lexer: Sequence {
+    public func makeIterator() -> LexerIterator {
+        return LexerIterator(lexer: self)
+    }
+}
+
 // MARK: - Identifier / Keyword
 
 extension Lexer {
-    private static let keywords: [String: Token.Kind] = [
+    static let keywords: [String: Token.Kind] = [
         "extern": .extern,
         "dim": .dim,
         "as": .as,
@@ -72,7 +93,7 @@ extension Lexer {
         "function": .function
     ]
 
-    private func identifier() -> Token {
+    mutating func identifier() -> Token {
         let start = index
         while hasMore, char.isLetter || char.isNumber || char == "_" {
             advance()
@@ -86,7 +107,7 @@ extension Lexer {
 // MARK: - Numbers
 
 extension Lexer {
-    private func number() -> Token {
+    mutating func number() -> Token {
         let start = index
         while hasMore, char.isNumber {
             advance()
@@ -99,7 +120,7 @@ extension Lexer {
 // MARK: - Strings
 
 extension Lexer {
-    private func string() -> Token {
+    mutating func string() -> Token {
         // consume opening quote
         advance()
         let start = index
@@ -118,21 +139,21 @@ extension Lexer {
 // MARK: - Helpers
 
 extension Lexer {
-    private var hasMore: Bool {
+    var hasMore: Bool {
         return index < source.endIndex
     }
 
-    private var char: Character {
+    var char: Character {
         return source[index]
     }
 
-    private func peek() -> Character? {
+    func peek() -> Character? {
         let nextIndex = source.index(after: index)
         guard nextIndex < source.endIndex else { return nil }
         return source[nextIndex]
     }
 
-    private func advance() {
+    mutating func advance() {
         index = source.index(after: index)
     }
 }
