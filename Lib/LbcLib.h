@@ -13,6 +13,6 @@ FOUNDATION_EXPORT double LbcLibVersionNumber;
 //! Project version string for LbcLib.
 FOUNDATION_EXPORT const unsigned char LbcLibVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <LbcLib/PublicHeader.h>
+// In this header, you should import all the headers of your framework using statements like #import <LbcLib/PublicHeader.h>
 
 

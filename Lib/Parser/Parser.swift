@@ -7,10 +7,10 @@
 
 import Foundation
 
-public struct Parser {
-    private var lexer: Lexer
+struct Parser {
+    var lexer: Lexer
 
-    public init(lexer: Lexer) {
+    init(lexer: Lexer) {
         self.lexer = lexer
     }
 }

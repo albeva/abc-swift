@@ -8,7 +8,4 @@
 import Foundation
 import Lbc
 
-let lexer = Lexer(source: "print \"hello world\"")
-for token in lexer {
-    print(token)
-}
+Driver().drive()

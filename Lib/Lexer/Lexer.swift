@@ -8,11 +8,11 @@
 import Foundation
 
 // The lexer, which turns a source string into a stream of tokens.
-public struct Lexer {
+struct Lexer {
     private let source: String
     private var index: String.Index
 
-    public init(source: String) {
+    init(source: String) {
         self.source = source
         self.index = source.startIndex
     }
@@ -63,21 +63,21 @@ public struct Lexer {
 
 // MARK: - Iterate over sequence
 
-public struct LexerIterator: IteratorProtocol {
+struct LexerIterator: IteratorProtocol {
     private var lexer: Lexer
 
     init(lexer: Lexer) {
         self.lexer = lexer
     }
 
-    public mutating func next() -> Token? {
+    mutating func next() -> Token? {
         let token = lexer.next()
         return token.kind == .eof ? nil : token
     }
 }
 
 extension Lexer: Sequence {
-    public func makeIterator() -> LexerIterator {
+    func makeIterator() -> LexerIterator {
         return LexerIterator(lexer: self)
     }
 }
