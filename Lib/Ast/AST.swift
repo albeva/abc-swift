@@ -19,18 +19,17 @@ protocol AstType: AstNode {}
 // MARK: - Base Classes for all AST Nodes
 
 class AstBase: AstNode {}
-class AstStatement: AstBase, AstStmt {}
-class AstExpression: AstBase, AstExpr {}
-class AstDeclaration: AstBase, AstDecl {}
-class AstTypeExpression: AstBase, AstType {}
+class AstStmtBase: AstBase, AstStmt {}
+class AstExprBase: AstBase, AstExpr {}
+class AstDeclBase: AstBase, AstDecl {}
+class AstTypeBase: AstBase, AstType {}
 
 // MARK: - Top Level
 
 final class AstModule: AstBase {
-    let body: [AstStmtKind]
-    init(body: [AstStmtKind]) {
+    let body: [AstStatement]
+    init(body: [AstStatement]) {
         self.body = body
-        super.init()
     }
 }
 
@@ -43,24 +42,24 @@ final class AstIdentifier: AstBase {
 
 // MARK: - Statements
 
-enum AstStmtKind: AstStmt {
-    case extern(AstDeclKind)
+enum AstStatement: AstStmt {
+    case extern(AstDeclaration)
     case dim(AstVariableDecl)
-    case expression(AstExprKind)
+    case expression(AstExpression)
 }
 
 // MARK: - Declarations
 
-enum AstDeclKind: AstDecl {
+enum AstDeclaration: AstDecl {
     case variable(AstVariableDecl)
     case function(AstFunctionDecl)
 }
 
-final class AstVariableDecl: AstDeclaration {
+final class AstVariableDecl: AstDeclBase {
     let id: AstIdentifier
-    let type: AstTypeKind
-    let value: AstExprKind
-    init(id: AstIdentifier, type: AstTypeKind, value: AstExprKind) {
+    let type: AstTypeExpression
+    let value: AstExpression
+    init(id: AstIdentifier, type: AstTypeExpression, value: AstExpression) {
         self.id = id
         self.type = type
         self.value = value
@@ -68,11 +67,11 @@ final class AstVariableDecl: AstDeclaration {
     }
 }
 
-final class AstFunctionDecl: AstDeclaration {
+final class AstFunctionDecl: AstDeclBase {
     let id: AstIdentifier
     let parameters: [AstFuncParameter]
-    let returnType: AstTypeKind
-    init(id: AstIdentifier, parameters: [AstFuncParameter], returnType: AstTypeKind) {
+    let returnType: AstTypeExpression
+    init(id: AstIdentifier, parameters: [AstFuncParameter], returnType: AstTypeExpression) {
         self.id = id
         self.parameters = parameters
         self.returnType = returnType
@@ -80,10 +79,10 @@ final class AstFunctionDecl: AstDeclaration {
     }
 }
 
-final class AstFuncParameter: AstDeclaration {
+final class AstFuncParameter: AstDeclBase {
     let id: AstIdentifier
-    let type: AstTypeKind
-    init(id: AstIdentifier, type: AstTypeKind) {
+    let type: AstTypeExpression
+    init(id: AstIdentifier, type: AstTypeExpression) {
         self.id = id
         self.type = type
         super.init()
@@ -92,29 +91,29 @@ final class AstFuncParameter: AstDeclaration {
 
 // MARK: - Expressions
 
-indirect enum AstExprKind: AstExpr {
+enum AstExpression: AstExpr {
     case literal(AstLiteralExpr)
     case variable(AstVariablleExpr)
     case call(AstCallExpr)
 }
 
-final class AstLiteralExpr: AstExpression {
+final class AstLiteralExpr: AstExprBase {
     let id: Token
     init(id: Token) {
         self.id = id
     }
 }
 
-final class AstCallExpr: AstExpression {
-    let callee: AstExprKind
-    let arguments: [AstExprKind]
-    init(callee: AstExprKind, arguments: [AstExprKind]) {
+final class AstCallExpr: AstExprBase {
+    let callee: AstExpression
+    let arguments: [AstExpression]
+    init(callee: AstExpression, arguments: [AstExpression]) {
         self.callee = callee
         self.arguments = arguments
     }
 }
 
-final class AstVariablleExpr: AstExpression {
+final class AstVariablleExpr: AstExprBase {
     let id: AstIdentifier
     init(id: AstIdentifier) {
         self.id = id
@@ -123,29 +122,29 @@ final class AstVariablleExpr: AstExpression {
 
 // MARK: - Types
 
-enum AstTypeKind: AstType {
+enum AstTypeExpression: AstType {
     case identifier(AstBuiltinType)
     case pointer(AstPointerType)
     case reference(AstReferenceType)
 }
 
-final class AstBuiltinType: AstTypeExpression {
+final class AstBuiltinType: AstTypeBase {
     let token: Token
     init(token: Token) {
         self.token = token
     }
 }
 
-final class AstPointerType: AstTypeExpression {
-    let base: AstTypeKind
-    init(base: AstTypeKind) {
+final class AstPointerType: AstTypeBase {
+    let base: AstTypeExpression
+    init(base: AstTypeExpression) {
         self.base = base
     }
 }
 
-final class AstReferenceType: AstTypeExpression {
-    let base: AstTypeKind
-    init(base: AstTypeKind) {
+final class AstReferenceType: AstTypeBase {
+    let base: AstTypeExpression
+    init(base: AstTypeExpression) {
         self.base = base
     }
 }
