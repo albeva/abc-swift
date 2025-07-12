@@ -19,10 +19,10 @@ protocol AstType: AstNode {}
 // MARK: - Base Classes for all AST Nodes
 
 class AstBase: AstNode {}
-class AstStatement: AstStmt {}
-class AstExpression: AstExpr {}
-class AstDeclaration: AstDecl {}
-class AstTypeExpression: AstType {}
+class AstStatement: AstBase, AstStmt {}
+class AstExpression: AstBase, AstExpr {}
+class AstDeclaration: AstBase, AstDecl {}
+class AstTypeExpression: AstBase, AstType {}
 
 // MARK: - Top Level
 
